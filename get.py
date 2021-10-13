@@ -1,4 +1,5 @@
 import datetime
+import os
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -10,6 +11,11 @@ from email.mime.text import MIMEText
 from base64 import urlsafe_b64encode
 
 check_same_day = True
+from_email = os.getenv('FROM_EMAIL')
+to_email = os.getenv('TO_EMAIL')
+
+if not from_email or not to_email:
+    raise ValueError('No TO or FROM emails specified')
 
 def setup():
     token_file = os.path.join(os.path.dirname(__file__), 'token.json')
@@ -88,8 +94,8 @@ This is a friendly reminder in case you are running or sleeping in.
     )
 
     message = MIMEText(content)
-    message["from"] = "andymckay@github.com"
-    message["to"] = "andy@clearwind.ca"
+    message["from"] = from_email 
+    message["to"] = to_email
     message["subject"] = "First meeting is at %s" % event['when'].strftime("%H:%M %p")
     body = {'raw': urlsafe_b64encode(message.as_string().encode()).decode()}
 

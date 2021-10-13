@@ -1,3 +1,3 @@
-export FROM_EMAIL=andymckay@github.com
-export TO_EMAIL=andy@clearwind.ca
+export FROM_EMAIL=your@email.address
+export TO_EMAIL=your@email.address
 /opt/homebrew/opt/python@3.9/bin/python3.9 /Users/andy/c/first-meeting/get.py
